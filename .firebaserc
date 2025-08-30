@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "cani-dev-ws",
+    "prod": "cani-prod-ws"
+  }
+}

@@ -1,0 +1,48 @@
+name: Firebase Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          if [ -f package.json ]; then npm ci; fi
+          if [ -f functions/package.json ]; then (cd functions && npm ci); fi
+
+      - name: Build app (if script exists)
+        run: |
+          if [ -f package.json ] && jq -e '.scripts.build' package.json >/dev/null; then npm run build; fi
+
+      - name: Preview deploy on PR
+        if: github.event_name == 'pull_request'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}'
+          projectId: cani-dev-ws
+          channelId: pr-${{ github.event.number }}
+
+      - name: Deploy Hosting + Functions on main (dev)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}" > $HOME/sa.json
+          npm i -g firebase-tools
+          firebase use cani-dev-ws --token "$(jq -r .private_key_id $HOME/sa.json >/dev/null 2>&1 || echo '')" || true
+          firebase deploy --only firestore:rules,storage:rules --project cani-dev-ws --token "$(jq -r .private_key_id $HOME/sa.json >/dev/null 2>&1 || echo '')" || true
+          (cd functions && npm run build)
+          firebase deploy --only functions,hosting --project cani-dev-ws --token "$(jq -r .private_key_id $HOME/sa.json >/dev/null 2>&1 || echo '')"

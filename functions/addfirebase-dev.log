@@ -1,0 +1,16 @@
+[2025-08-30T09:51:37.955Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[2025-08-30T09:51:37.956Z] > authorizing via signed-in user (patrickwscraven@gmail.com)
+- Adding Firebase resources to Google Cloud Platform project
+[2025-08-30T09:51:37.959Z] Checked if tokens are valid: true, expires at: 1756550876874
+[2025-08-30T09:51:37.960Z] Checked if tokens are valid: true, expires at: 1756550876874
+[2025-08-30T09:51:37.962Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/cani-dev-ws:addFirebase [none]
+[2025-08-30T09:51:38.279Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/cani-dev-ws:addFirebase 403
+[2025-08-30T09:51:38.279Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/cani-dev-ws:addFirebase {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[2025-08-30T09:51:38.279Z] Request to https://firebase.googleapis.com/v1beta1/projects/cani-dev-ws:addFirebase had HTTP Error: 403, The caller does not have permission
+✖ Adding Firebase resources to Google Cloud Platform project
+[2025-08-30T09:51:38.280Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/cani-dev-ws:addFirebase had HTTP Error: 403, The caller does not have permission
+    at responseToError (/home/patrick/.npm-global/lib/node_modules/firebase-tools/lib/responseToError.js:52:12)
+    at RetryOperation._fn (/home/patrick/.npm-global/lib/node_modules/firebase-tools/lib/apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+Error: Failed to add Firebase to Google Cloud Platform project. See firebase-debug.log for more info.

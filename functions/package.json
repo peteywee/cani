@@ -1,0 +1,21 @@
+{
+  "name": "cani-functions",
+  "private": true,
+  "engines": { "node": "20" },
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "serve": "firebase emulators:start --only functions,firestore,auth,storage,hosting",
+    "deploy": "firebase deploy --only functions",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^5.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@types/node": "^20.12.12",
+    "eslint": "^9.9.0"
+  }
+}

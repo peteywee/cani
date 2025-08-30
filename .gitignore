@@ -1,0 +1,25 @@
+# Node
+node_modules/
+npm-debug.log*
+pnpm-lock.yaml
+yarn.lock
+dist/
+.build/
+.cache/
+
+# Firebase
+.firebase/
+firebase-debug.log
+
+# Functions
+functions/lib/
+functions/node_modules/
+
+# Local env
+.env
+.env.*
+!.env.example
+
+# Secrets – DO NOT COMMIT
+sa.json
+*.key.json
